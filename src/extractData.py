@@ -5,7 +5,7 @@ import sys
 #
 def getRvNames(xlsx):
 	df = pd.read_excel(xlsx, usecols=["Uniprot ID"])
-	print("Total number of records to process: " + str(len(df)))
+	print("Total number of records to process: " + str(len(df) - 1))
 	# url_uniProt = "https://www.uniprot.org/uniprot/?query=" #%5BMYCP5_MYCTU%5D&sort=score"  # This is old URL
 	url_uniProt = "https://rest.uniprot.org/uniprotkb/search?query="
 	outfilename = "Output-from-" + xlsx.split('/')[-1][:-5] + ".txt"
@@ -19,6 +19,7 @@ def getRvNames(xlsx):
 		primary_name = getPrimaryName(resp)
 		uri = url_uniProt + each_id + "&fields=gene_oln&format=tsv"
 		resp = requests.get(uri)
+		result = ''
 		try:
 			for i in resp.text.split('\n')[1:-1]:
 				if 'Rv' in i:
@@ -26,7 +27,7 @@ def getRvNames(xlsx):
 					break
 		except:
 			("Error getting Rv Number for: " + each_id + ':' + resp.status_code)
-		if result and len(result.split(' ')) > 1:
+		if len(result.split(' ')) > 1:
 			print("More than one Rv Number present for: " + each_id + ". Please process this input manually.")
 			continue
 		if primary_name:
