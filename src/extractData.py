@@ -5,7 +5,7 @@ import sys
 #
 def getRvNames(xlsx):
 	df = pd.read_excel(xlsx, usecols=["Uniprot ID"])
-	print("Total number of records to process: " + str(len(df) - 1))
+	print("Total number of records to process: " + str(len(df)))
 	# url_uniProt = "https://www.uniprot.org/uniprot/?query=" #%5BMYCP5_MYCTU%5D&sort=score"  # This is old URL
 	url_uniProt = "https://rest.uniprot.org/uniprotkb/search?query="
 	outfilename = "Output-from-" + xlsx.split('/')[-1][:-5] + ".txt"
