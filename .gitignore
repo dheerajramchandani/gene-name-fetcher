@@ -1,4 +1,11 @@
 .DS_Store
+__pycache__/
 
-# Output files
-Output-from-*
+# Ignore the input files but keep the directory
+input/**
+
+# Ignore the output files but keep the directory
+output/**
+
+# IDE
+.vscode
